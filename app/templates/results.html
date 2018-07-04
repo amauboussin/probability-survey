@@ -1,0 +1,126 @@
+{% load survey_formatting %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Results</title>
+
+
+
+  <style>
+  text{
+      font-size: 14px;
+    }
+  .blog-footer {
+    padding: 40px 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+  }
+  .blog-footer p:last-child {
+    margin-bottom: 0;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="page-header">Results</h3>
+      <p>Each box plot shows the 5th, 25th, 50th, 75th, and 95th percentile of the responses for each word.</p>
+      <div id="explainer" style="display: none;">
+        <p>The thicker black lines show where your response fell.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4 col-md-2">
+      <h4 class="control-label" for="format-toggle">Chart Format:</h4>
+    </div>
+    <div class="col-xs-8 col-md-4">
+
+      <div id="format-toggle" class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+        <a onclick="switch_layout('box_plots')" class="btn btn-default active" role="button">Box Plots</a>
+        <a onclick="switch_layout('histograms')" class="btn btn-default" role="button">Histograms</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{#<div id="esl-toggle" class="btn-group btn-group-justified" role="group" aria-label="Justified button group">#}
+{#  <a onclick="switch_layout('box_plots')" class="btn btn-default" role="button">Box Plots</a>#}
+{#  <a  onclick="switch_layout('histograms')" class="btn btn-default" role="button">Histograms</a>#}
+{#</div>#}
+{#<div id="gender-toggle" class="btn-group btn-group-justified" role="group" aria-label="Justified button group">#}
+{#  <a onclick="switch_layout('box_plots')" class="btn btn-default" role="button">Box Plots</a>#}
+{#  <a  onclick="switch_layout('histograms')" class="btn btn-default" role="button">Histograms</a>#}
+{#</div>#}
+
+<div id="vis"></div>
+]
+
+{#<div class="container">#}
+{#  <div class="row">#}
+{#    {% if show_individual_results %}#}
+{#      <h4>Your response: </h4>#}
+{#      <div class="col-xs-4">#}
+{#        <table class="table table-bordered ">#}
+{#          <thead>#}
+{#              <tr>#}
+{#                  <th>Question</th>#}
+{#                  <th>Your Answer</th>#}
+{#              </tr>#}
+{#          </thead>#}
+{#          <tbody>#}
+{#          {% for k, v in response %}#}
+{##}
+{#              <tr>#}
+{#                  <td>{{ k|format_probability_word }}</td>#}
+{#                  <td>{{ v }}%</td>#}
+{#              </tr>#}
+{##}
+{#          {% endfor %}#}
+{#          </tbody>#}
+{#        </table>#}
+{#    {% endif %}#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+
+<footer class="blog-footer">
+  <p>
+    <a href="/">Take the survey</a>
+  </p>
+  <p>Further reading: <a href="https://projecteuclid.org/euclid.ss/1177012242" target="_blank">"Quantifying Probabilistic Expressions" (Mosteller and Youtz 1990) </a></p>
+  <p>Insired by <a href="https://www.reddit.com/r/dataisbeautiful/comments/6vythg/i_redid_my_perceptions_of_probability_and_numbers/?st=jdfne19p&sh=d8909ce1">
+    zonination's "Perceptions of Probability and Numbers"</a></p>
+  <p>Site by <a href="https://twitter.com/amaub" target="_blank">Andrew Mauboussin</a>.</p>
+
+</footer>
+<script>
+  var prob_word_lookup = {
+    {% for word in probability_words %}
+      "{{ word }}": "{{ word|format_probability_word }}",
+    {% endfor %}
+  };
+  var response = [
+    {% for k, v in response %}
+      ["{{ k|format_probability_word }}", {{ v }}],
+    {% endfor %}
+  ];
+  if (response.length > 0){
+    d3.select('#explainer').style('display', '');
+  }
+</script>
+<script src="/static/vis.js"></script>
+
+</body>
+</html>

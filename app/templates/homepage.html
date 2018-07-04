@@ -1,0 +1,63 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta charset="UTF-8">
+<style>
+  .blog-footer {
+  padding: 40px 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+}
+  .blog-footer p:last-child {
+    margin-bottom: 0;
+  }
+  #submit-id-submit{
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+</style>
+
+  <title>Homepage</title>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+
+    <div class="page-header col-xs-12">
+      <h2>Quantifying Probabilistic Expressions</h2>
+      <h4>How does your perception of how words translate to probabilities compare to others?</h4>
+    </div>
+  </div>
+  <div class="row">
+
+
+    <div class="col-xs-12">
+      <h5>If a future event is ____ to happen (or going to happen with ____), what percentage of the time would you estimate it ends up happening?</h5>
+      <p>Please assign the probability value that you associate with the following list of words or phrases.</p>
+      <p>For example, most people would associate a value of 0% (or something very small) with the phrase "absolutely zero chance".</p>
+      <p>After you submit your answers, you will be able to see a visualization of prior responses and where you fit in.</p>
+    </div>
+  </div>
+  <div class="row">
+    {% crispy form %}
+  </div>
+</div>
+
+    <footer class="blog-footer">
+      <p>
+        <a href="/results">Direct link to the results page </a>
+      </p>
+      <p>Further reading: <a href="https://projecteuclid.org/euclid.ss/1177012242" target="_blank">"Quantifying Probabilistic Expressions" (Mosteller and Youtz 1990) </a></p>
+      <p>Insired by <a href="https://www.reddit.com/r/dataisbeautiful/comments/6vythg/i_redid_my_perceptions_of_probability_and_numbers/?st=jdfne19p&sh=d8909ce1">
+        zonination's "Perceptions of Probability and Numbers"</a></p>
+      <p>Site by <a href="https://twitter.com/amaub" target="_blank">Andrew Mauboussin</a> and <a href="https://twitter.com/mjmauboussin" target="_blank">Michael Mauboussin</a>.</p>
+
+    </footer>
+</body>
+</html>
